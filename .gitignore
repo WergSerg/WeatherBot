@@ -1,0 +1,17 @@
+*.pyc
+app.db
+log.db
+./tmp
+./build/*
+.idea
+env
+venv
+*.sublime*
+.env.dev
+.env
+
+celerybeat-schedule
+celerybeat-schedule.db
+flower
+flower.db
+.open
