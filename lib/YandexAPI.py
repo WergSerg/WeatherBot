@@ -68,7 +68,7 @@ class LocCorr():
         return self.core
 
     def get_corr(self,city: str):
-        resp=YandexApi().getResp(XYandexAPIKey=XYANDEXAPIKEYDIR,URL=URLDIR+city)
+        resp=YandexApi().getResp(XYandexAPIKey=XYANDEXAPIKEYDIR,URL=URLDIR.replace('@APIKEY',XYANDEXAPIKEYDIR)+city)
         return [cor for cor in self.parsResp(resp).split(' ')]
 
 class Weather():
