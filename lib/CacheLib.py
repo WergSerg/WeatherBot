@@ -1,6 +1,6 @@
 class ListDictBasedCache(object):
     __slots__ = ['__key2value', '__maxCount', '__weights']
-    def __init__(self, maxCount):
+    def __init__(self, maxCount=1000):
         self.__maxCount = maxCount
         self.__key2value = {}# key->value
         self.__weights = []# keys ordered in LRU
@@ -34,3 +34,4 @@ class ListDictBasedCache(object):
 
     def __str__(self):
         return str(self.__key2value)
+
