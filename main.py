@@ -8,9 +8,7 @@ import telebot
 import json
 import requests
 
-
 bot = telebot.TeleBot(config.BOTAPI)
-
 cache=ListDictBasedCache()
 
 def cached(func):
