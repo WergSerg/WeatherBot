@@ -9,11 +9,10 @@ import requests
 
 bot = telebot.TeleBot(config.BOTAPI)
 
-
-
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     sendMess(message.from_user.id, "я покажу тебе погоду хаха.\nПришли мне свою геопозицию",mode='Markdown')
+
 
 @bot.message_handler(content_types=['location'])
 def get_Location(message):
@@ -26,11 +25,15 @@ def get_Location(message):
 @bot.message_handler(content_types=['text'])
 def get_city(message):
     resp=LocCorr().get_corr(message.text)
-    aaa=Weather()
-    lon=resp[0]
-    lat=resp[1]
-    res=aaa.getWeather(lat=lat,lon=lon)
-    sendMess(message.from_user.id, makeMess(res=res), mode='Markdown')
+    if resp[0]=='error':
+        # print(message.from_user.first_name)
+        sendMess(message.from_user.id,'Ты что-то попутал!', mode='Markdown')
+    else:
+        aaa=Weather()
+        lon=resp[0]
+        lat=resp[1]
+        res=aaa.getWeather(lat=lat,lon=lon)
+        sendMess(message.from_user.id, makeMess(res=res), mode='Markdown')
 
 def makeMess(res):
     mess = ''
