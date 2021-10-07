@@ -24,7 +24,7 @@ def cached(func):
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    sendMess(message.from_user.id, "я покажу тебе погоду хаха.\nПришли мне свою геопозицию",mode='Markdown')
+    sendMess(message.from_user.id, "я покажу тебе погоду.\nПришли мне свою геопозицию",mode='Markdown')
 
 
 @bot.message_handler(content_types=['location'])
