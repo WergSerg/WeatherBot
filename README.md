@@ -2,6 +2,8 @@
 This is a bot that can show the weather via Yandex api. 
 Work on the bot is not completed.
 
+##example of a bot: https://t.me/YAnWeather_Bot
+
 # Instructions :
 key for bot: https://tlgrm.ru/docs/bots#kak-sozdat-bota
 key for API yandex.weather: https://yandex.ru/dev/weather/doc/dg/concepts/about.html
