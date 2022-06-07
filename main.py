@@ -1,14 +1,14 @@
 import config
+
 from lib.YandexAPI  import Weather, LocCorr
 from lib.CacheLib import ListDictBasedCache
 
 # -*- coding: utf-8 -*-
 
 import telebot
-import json
-import requests
 
 bot = telebot.TeleBot(config.BOTAPI)
+# bot = config.BOTAPI
 cache=ListDictBasedCache()
 
 def cached(func):
@@ -17,9 +17,9 @@ def cached(func):
         if key in cache.keys():
             func(args,cache[key])
         else:
-            res=LocCorr().get_corr(args.text)
+            res = LocCorr().get_corr(args.text)
             cache[key]=res
-            func(args,res)
+            func(args, res)
     return decor
 
 @bot.message_handler(commands=['start'])
@@ -29,23 +29,22 @@ def send_welcome(message):
 
 @bot.message_handler(content_types=['location'])
 def get_Location(message):
-    aaa=Weather()
-    lon=message.location.longitude
-    lat=message.location.latitude
-    res=aaa.getWeather(lat=lat,lon=lon)
+    aaa = Weather()
+    lon = message.location.longitude
+    lat = message.location.latitude
+    res = aaa.getWeather(lat=lat, lon=lon)
     sendMess(message.from_user.id, makeMess(res=res), mode='Markdown')
 
 
 @bot.message_handler(content_types=['text'])
 @cached
-def get_city(message,resp):
-    if resp[0]=='error':
-        sendMess(message.from_user.id,'Ты что-то попутал!', mode='Markdown')
+def get_city(message, resp):
+    if resp[0] == 'error':
+        sendMess(message.from_user.id, 'Ты что-то попутал!', mode='Markdown')
     else:
-        aaa=Weather()
-        res=aaa.getWeather(lat=resp[1],lon=resp[0])
+        aaa = Weather()
+        res = aaa.getWeather(lat=resp[1], lon=resp[0])
         sendMess(message.from_user.id, makeMess(res=res), mode='Markdown')
-
 
 
 def makeMess(res):
@@ -54,9 +53,9 @@ def makeMess(res):
         mess+=str(i)+": "+str(res[i])+'\n'
     return mess
 
+
 def sendMess(id, mess, mode=None):
     bot.send_message(id, mess, parse_mode=mode)
-
 
 
 try:

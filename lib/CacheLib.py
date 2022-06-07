@@ -1,18 +1,19 @@
 class ListDictBasedCache(object):
     __slots__ = ['__key2value', '__maxCount', '__weights']
+
     def __init__(self, maxCount=1000):
         self.__maxCount = maxCount
-        self.__key2value = {}# key->value
-        self.__weights = []# keys ordered in LRU
+        self.__key2value = {}
+        self.__weights = []
 
     def __updateWeight(self, key):
         try:
             self.__weights.remove(key)
         except ValueError:
             pass
-        self.__weights.append(key)# add key to end
+        self.__weights.append(key)
         if len(self.__weights) > self.__maxCount:
-            _key = self.__weights.pop(0)# remove first key
+            _key = self.__weights.pop(0)
             self.__key2value.pop(_key)
 
     def keys(self):
@@ -25,8 +26,7 @@ class ListDictBasedCache(object):
             return value
         except KeyError:
             self.__updateWeight(key)
-
-            #raise KeyError("key %s not found" % key)
+            raise KeyError("key %s not found" % key)
 
     def __setitem__(self, key, value):
         self.__key2value[key] = value
@@ -34,4 +34,3 @@ class ListDictBasedCache(object):
 
     def __str__(self):
         return str(self.__key2value)
-
